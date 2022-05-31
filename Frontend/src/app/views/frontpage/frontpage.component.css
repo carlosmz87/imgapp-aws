@@ -1,0 +1,91 @@
+.titulo{
+    text-align: center;
+    background-color: cornflowerblue;
+    height: 20%;
+    width: 100%;
+}
+
+.opciones{
+    background-color: blanchedalmond;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+.btn{
+    position: float;
+    margin: 25px;
+    height: 50px;
+    width: 100px;
+    background-color: cadetblue;
+}
+
+.contenedor{
+    height: 1000px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+.grid1{
+    float: left;
+    background-color: red;
+    height: 50%;
+    width: 50%;
+}
+.grid3{
+    float: left;
+    background-color:burlywood;
+    height: 50%;
+    width: 50%;
+}
+
+.grid2{
+    float:right;
+    background-color:cadetblue;
+    height: 100%;
+    width: 50%;
+}
+
+.im{
+    height:80%;
+    width: 80%;
+}
+img{
+    height: 100%;
+    width: 100%;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.st{
+    margin-left: 30%;
+}
+
+.input-file{
+    background-color: transparent;
+    margin-left: 42%;
+    height: 50px;
+    border:solid 1px rgb(228,228,132228);
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.campo{
+    border: 2px solid;
+    list-style: none;
+    border-color: black;
+    margin-top: 2px;
+    cursor: pointer;
+    
+}
+
+.lista{
+    margin-left: 2px;
+    height: 70%;
+    width: 75%;
+}
+
+form{
+    background-color: azure;
+}

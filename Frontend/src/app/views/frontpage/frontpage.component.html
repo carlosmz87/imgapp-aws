@@ -1,0 +1,30 @@
+<h1 class="titulo">APP IMAGE UPLOADER AWS S3 & RDS DEMO</h1>
+<div class="opciones">
+    <button type="submit" form="formulario" class="btn">CREATE</button>
+    <button (click)="ListarArchivos()" class="btn">RETRIEVE</button>
+    <button (click)="ModificarArchivo(nombre)" class="btn">UPDATE</button>
+    <button (click)="BorrarArchivo(nombre)" class="btn">DELETE</button>
+</div>
+<div class="contenedor">
+    <div class="grid1">
+        <h1 class="st">IMAGES S3 LIST</h1>
+        <ul class="lista">
+           <li class="campo" *ngFor="let cont of listbucket"><a (click)="ObtenerNombre(cont)">{{cont}}</a></li>
+        </ul>
+    </div>
+    <div class="grid2">
+        <div *ngIf = "previsualizacion" class="im">
+            <img [src]="previsualizacion">
+        </div>
+    </div>
+    <div class="grid3">
+        <h1 class="st">IMAGES RDS LIST</h1>
+        <ul class="lista">
+           <li class="campo" *ngFor="let el of getquery"><a (click)="ObtenerNombre(el.ID_KEY)">NAME: {{el.ID_KEY}} <br/> TYPE: {{el.TYPE}} <br/> SIZE: {{el.SIZE}}</a></li>
+        </ul>
+    </div>
+</div>
+<form [formGroup]="myForm" id="formulario" (ngSubmit)="SubirArchivo()">
+    <input formControlName="file" name="file" class="input-file" (change)="CapturarImg($event)" type="file">
+</form>
+
