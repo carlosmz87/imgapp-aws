@@ -3,12 +3,17 @@ pipeline{
     stages{
         stage('build'){
             steps{
-                sh 'docker image ls'
+                echo 'build'
             }
         }
         stage('test'){
             steps{
-                sh 'aws s3 ls'
+                echo 'test'
+            }
+        }
+        stage('dockerize'){
+            steps{
+                echo 'dockerize'
             }
         }
     }
