@@ -1,9 +1,15 @@
 pipeline{
     agent any
+    tools{
+        nodejs 'nodejs'
+    }
     stages{
         stage('build'){
             steps{
-                echo 'build'
+                echo 'build frontend'
+                dir('Frontend'){
+                    sh 'npm version'
+                }
             }
         }
         stage('test'){
