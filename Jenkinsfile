@@ -8,6 +8,7 @@ pipeline{
             steps{
                 echo 'build frontend'
                 dir('Frontend'){
+                    sh 'npm install'
                     sh 'npm run ng build'
                 }
             }
