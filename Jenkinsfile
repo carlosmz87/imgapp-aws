@@ -17,7 +17,7 @@ pipeline{
             environment{
                 DATABASE_USER = 'root'
                 DATABASE_PASSWORD = 'root'
-                DATABASE_HOST = 'localhost'
+                DATABASE_HOST = 'mysqldb'
                 DATABASE_NAME = 'trainingdb'
                 DATABASE_PORT = '3307'
                 REGION = 'us-east-1'
