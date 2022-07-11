@@ -59,11 +59,11 @@ pipeline{
                     echo '------------deliver app-----------'
                     docker.withRegistry('', 'Docker-hub'){
                         echo "-----------deliver backend-----------"
-                        dockerImageB.push('$BUILD_NUMBER')
-                        dockerImageB.push('latest')
+                        dockerImageB.push("$BUILD_NUMBER")
+                        dockerImageB.push("latest")
                         echo "----------deliver frontend-----------"
-                        dockerImageF.push('$BUILD_NUMBER')
-                        dockerImageF.push('latest')
+                        dockerImageF.push("$BUILD_NUMBER")
+                        dockerImageF.push("latest")
                     }
                 }
             }
