@@ -15,11 +15,11 @@ pipeline{
         }
         stage('test'){
             environment{
-                DATABASE_USER = 'root'
-                DATABASE_PASSWORD = 'root'
-                DATABASE_HOST = 'mysqldb'
+                DATABASE_USER = 'admin'
+                DATABASE_PASSWORD = 'admin1234'
+                DATABASE_HOST = 'imgapp-db.czrtwrivrsgu.us-east-1.rds.amazonaws.com'
                 DATABASE_NAME = 'trainingdb'
-                DATABASE_PORT = '3307'
+                DATABASE_PORT = '3306'
                 REGION = 'us-east-1'
                 BUCKET1 = 'trainingb1'
                 ACCESS_KEY = credentials('ACCESS_KEY')
