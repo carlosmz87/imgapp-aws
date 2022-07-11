@@ -33,7 +33,7 @@ pipeline{
                 }
             }
         }
-        stage('dockerize'){
+        stage('dockerize-backend'){
             steps{
                 echo '----------dockerize backend----------'
                 dir('Backend'){
@@ -41,6 +41,10 @@ pipeline{
                         dockerImageB = docker.build "carlosmz87/aws-imgapp-backend"
                     }
                 }
+            }
+        }
+        stage('dockerize-frontend'){
+            steps{
                 echo '---------dockerize frontend---------'
                 dir('Frontend'){
                     script{
