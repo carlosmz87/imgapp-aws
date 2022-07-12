@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('deploy'){
             steps{
-                echo '--------deploy app on aws---------'
+                echo '-------- app on aws---------'
             }
         }
     }
