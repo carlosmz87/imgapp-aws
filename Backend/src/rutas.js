@@ -64,6 +64,7 @@ router.get('/get',(req,res)=>{
                 res.json({listS3: nombres, listSql: rows});
             }else{
                 console.log(err);
+                return res.status(404).send("CAN'T GET REGISTERS");
             }
         });
     });
@@ -76,15 +77,21 @@ router.post('/post', upload.single('file'),(req,res)=>{
         Key: req.file.originalname
     }
     s3.putObject(parametros, function(err, data){
-        if(err) console.log(err, err.stack)
-        else console.log(data)
+        if(err){
+            console.log(err, err.stack)
+            return res.status(404).send("CAN'T POST REGISTERS");
+        } 
+        else {
+            console.log(data)
+        }
     });
     var sql = "INSERT INTO imagenes (ID_KEY, NAME, TYPE, SIZE, LOCATION) VALUES(?,?,?,?,?)";
     mysqlCon.query(sql,[req.file.originalname, req.file.originalname, req.file.mimetype, req.file.size, req.file.path], function(err, rows, fields){
         if(err){
             console.log("ERROR WHILE INSERTING A REGISTER ON DATABASE");
+            return res.status(404).send("CAN'T POST REGISTERS");
         }else{
-            res.json({resS3:"FILE UPLOADED TO THE S3 SERVER",
+            res.status(201).json({resS3:"FILE UPLOADED TO THE S3 SERVER",
         resRds:"FILE METADATA STORED IN RDS DATABASE"});
         }
     });
@@ -98,16 +105,21 @@ router.put('/put/:filename', upload.single('file'), (req,res)=>{
         Key: filename
     }
     s3.putObject(parametros, function(err, data){
-        if(err) console.log(err, err.stack)
-        else console.log(data)
+        if(err){
+            console.log(err, err.stack)
+            return res.status(404).send("CAN'T PUT REGISTERS");
+        }
+        else{
+            console.log(data)
+        } 
     });
     var sql = "UPDATE imagenes SET NAME = ?, TYPE = ?, SIZE = ?, LOCATION = ? WHERE ID_KEY = ?"
     mysqlCon.query(sql, [req.file.originalname, req.file.mimetype, req.file.size, req.file.path, filename], function(err, rows, fields){
         if(err){
             console.log("ERROR WHILE INSERTING A REGISTER ON DATABASE");
+            
         }else{
-            res.json({resS3:"FILE UPDATED TO THE S3 SERVER ",
-        resRds:"FILE METADATA UPDATED IN RDS DATABASE"});
+            res.json({resS3:"FILE UPDATED TO THE S3 SERVER ", resRds:"FILE METADATA UPDATED IN RDS DATABASE"});
         }
     });
 });
@@ -117,10 +129,14 @@ router.delete('/delete/:filename', (req,res)=>{
     s3.deleteObject({Bucket:BUCKET1, Key:filename},(err,data)=>{
         if(err) throw err;
         mysqlCon.query('DELETE FROM imagenes WHERE ID_KEY = ?',[req.params.filename],(err, rows, fields)=>{
-            if(!err)
-            res.json({respuestaS3:"BUCKET REGITER IS DELETED", respuestaSql:"RDS REGISTER IS DELETED"});
-            else 
-            console.log(err);
+            if(!err){
+                res.json({respuestaS3:"BUCKET REGITER IS DELETED", respuestaSql:"RDS REGISTER IS DELETED"});
+            }
+            else{
+                console.log(err);
+                return res.status(404).send("CAN'T DELETE REGISTERS");
+            } 
+            
         }); 
     });
 });
