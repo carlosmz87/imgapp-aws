@@ -4,7 +4,20 @@ pipeline{
         stage('deploy'){
             steps{
                 echo '--------deploy app on aws---------'
-                sh 'aws --version'
+                echo 'push backend to ecr'
+                dir('Backend'){
+                    sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/q7n3i1o7'
+                    sh 'docker build -t aws-img-app-backend .'
+                    sh 'docker tag aws-img-app-backend:latest public.ecr.aws/q7n3i1o7/aws-img-app-backend:latest'
+                    sh 'docker push public.ecr.aws/q7n3i1o7/aws-img-app-backend:latest'
+                }
+                echo 'push frontend to ecr'
+                dir('Frontend'){
+                    sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/q7n3i1o7'
+                    sh 'docker build -t aws-img-app-frontend .'
+                    sh 'docker tag aws-img-app-frontend:latest public.ecr.aws/q7n3i1o7/aws-img-app-frontend:latest'
+                    sh 'docker push public.ecr.aws/q7n3i1o7/aws-img-app-frontend:latest'
+                }
             }
         }
     }
