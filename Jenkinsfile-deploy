@@ -4,6 +4,7 @@ pipeline{
         stage('deploy'){
             steps{
                 echo '--------deploy app on aws---------'
+                sh 'aws --version'
             }
         }
     }
