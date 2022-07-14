@@ -4,31 +4,11 @@ pipeline{
         stage('build-app-aws'){
             steps{
                 echo '--------deploy app on aws---------'
-                echo 'push backend to ecr'
-                dir('Backend'){
-                    script{
-                        dockerImageB = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-backend"
-                    }
-                }
-                echo 'push frontend to ecr'
-                dir('Frontend'){
-                     script{
-                        dockerImageF = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-frontend"
-                    }
-                }
-            }
-        }
-        stage('deliver-app-aws'){
-            steps{
                 script{
-                    docker.withRegistry('https://public.ecr.aws/q7n3i1o7', 'ecr:us-east-1:aws-credentials'){
-                        echo "-----------deliver backend-----------"
-                        dockerImageB.push("latest")
-                        echo "----------deliver frontend-----------"
-                        dockerImageF.push("latest")
-                    }
+                    sh 'aws s3 ls'
                 }
             }
         }
+        
     }
 }
