@@ -20,11 +20,13 @@ pipeline{
         }
         stage('deliver-app-aws'){
             steps{
-                docker.withRegistry('https://857738776382.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
+                script{
+                    docker.withRegistry('https://857738776382.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
                         echo "-----------deliver backend-----------"
                         dockerImageB.push("latest")
                         echo "----------deliver frontend-----------"
                         dockerImageF.push("latest")
+                    }
                 }
             }
         }
