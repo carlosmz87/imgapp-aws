@@ -45,7 +45,7 @@ pipeline{
         }
         stage('dockerize-frontend'){
             steps{
-                echo '---------dockerize frontend---------'
+                echo '--------dockerize frontend--------'
                 dir('Frontend'){
                     script{
                         dockerImageF = docker.build "carlosmz87/aws-imgapp-frontend"
