@@ -57,7 +57,7 @@ pipeline{
         stage('deliver-app'){
             steps{
                 script{
-                    echo '------------deliver app-----------'
+                    echo '------------deliver app------------'
                     docker.withRegistry('', 'Docker-hub'){
                         echo "-----------deliver backend-----------"
                         dockerImageB.push("$BUILD_NUMBER")
