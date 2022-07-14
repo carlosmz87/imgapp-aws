@@ -7,13 +7,13 @@ pipeline{
                 echo 'push backend to ecr'
                 dir('Backend'){
                     script{
-                        dockerImageB = docker.build "carlosmz87/aws-imgapp-backend"
+                        dockerImageB = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-backend"
                     }
                 }
                 echo 'push frontend to ecr'
                 dir('Frontend'){
                      script{
-                        dockerImageF = docker.build "carlosmz87/aws-imgapp-frontend"
+                        dockerImageF = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-frontend"
                     }
                 }
             }
@@ -21,7 +21,7 @@ pipeline{
         stage('deliver-app-aws'){
             steps{
                 script{
-                    docker.withRegistry('https://857738776382.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
+                    docker.withRegistry('https://public.ecr.aws/q7n3i1o7', 'ecr:us-east-1:aws-credentials'){
                         echo "-----------deliver backend-----------"
                         dockerImageB.push("latest")
                         echo "----------deliver frontend-----------"
