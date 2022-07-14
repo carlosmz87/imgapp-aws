@@ -46,6 +46,7 @@ pipeline{
         stage('dockerize-frontend'){
             steps{
                 echo '--------dockerize frontend--------'
+                sh 'npm install -g npm@8.14.0'
                 dir('Frontend'){
                     script{
                         dockerImageF = docker.build "carlosmz87/aws-imgapp-frontend"
