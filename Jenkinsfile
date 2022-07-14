@@ -68,17 +68,5 @@ pipeline{
                 }
             }
         }
-        stage('deliver-app-aws'){
-            steps{
-                script{
-                    docker.withRegistry('https://public.ecr.aws/q7n3i1o7', 'ecr:us-east-1:aws-credentials'){
-                        echo "-----------deliver backend-----------"
-                        dockerImageB.push("latest")
-                        echo "----------deliver frontend-----------"
-                        dockerImageF.push("latest")
-                    }
-                }
-            }
-        }
     }
 }
