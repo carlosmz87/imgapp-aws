@@ -6,7 +6,7 @@ pipeline{
                 echo '--------deploy app on aws---------'
                 echo 'push backend to ecr'
                 dir('Backend'){
-                    sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/q7n3i1o7'
+                    sh '$(aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/q7n3i1o7)'
                     sh 'docker build -t aws-img-app-backend .'
                     sh 'docker tag aws-img-app-backend:latest public.ecr.aws/q7n3i1o7/aws-img-app-backend:latest'
                     sh 'docker push public.ecr.aws/q7n3i1o7/aws-img-app-backend:latest'
