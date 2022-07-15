@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImgService {
-  baseUrl: string = 'http://localhost:3000/training/api/'
+  baseUrl: string = 'http://imgapp-alb-569182211.us-east-1.elb.amazonaws.com:3000/training/api/'
   constructor(private http: HttpClient) { }
   
   public Post(ruta:string, body:any):Observable<any>{
