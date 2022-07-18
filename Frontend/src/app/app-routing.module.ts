@@ -13,6 +13,10 @@ const routes: Routes = [
     component: FrontpageComponent,
     pathMatch: 'full'
   
+  },
+  { 
+    path: '**',
+    redirectTo: ''
   }
 ];
 
