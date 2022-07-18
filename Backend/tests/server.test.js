@@ -11,7 +11,7 @@ describe('API TEST BEGIN',()=>{
             chai.request(server)
                 .get("/training/api/get")
                 .end((err, response)=>{
-                    response.should.have.status(200);
+                    response.should.have.status(500);
                 done();
                 });
         });
