@@ -3,32 +3,13 @@ pipeline{
     stages{
         stage('build-app-aws'){
             steps{
-                echo '--------deploy app on aws---------'
-                echo 'push backend to ecr'
-                dir('Backend'){
-                    script{
-                        dockerImageB = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-backend"
-                    }
-                }
-                echo 'push frontend to ecr'
-                dir('Frontend'){
-                     script{
-                        dockerImageF = docker.build "public.ecr.aws/q7n3i1o7/aws-img-app-frontend"
-                    }
-                }
-            }
-        }
-        stage('deliver-app-aws'){
-            steps{
+                echo '--------deploy app on aws--------'
                 script{
-                    docker.withRegistry('https://public.ecr.aws/q7n3i1o7', 'ecr:us-east-1:aws-credentials'){
-                        echo "-----------deliver backend-----------"
-                        dockerImageB.push("latest")
-                        echo "----------deliver frontend-----------"
-                        dockerImageF.push("latest")
-                    }
+                    sh 'aws ecs update-service --cluster imgapp-back-cluster --service backend-service --force-new-deployment --region us-east-1'
+                    sh 'aws ecs update-service --cluster imgapp-front-cluster --service frontend-service --force-new-deployment --region us-east-1'
                 }
             }
         }
+        
     }
 }

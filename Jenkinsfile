@@ -45,7 +45,8 @@ pipeline{
         }
         stage('dockerize-frontend'){
             steps{
-                echo '---------dockerize frontend---------'
+                echo '--------dockerize frontend--------'
+                sh 'npm install -g npm@8.14.0'
                 dir('Frontend'){
                     script{
                         dockerImageF = docker.build "carlosmz87/aws-imgapp-frontend"
@@ -56,7 +57,7 @@ pipeline{
         stage('deliver-app'){
             steps{
                 script{
-                    echo '------------deliver app-----------'
+                    echo '-----------deliver app------------'
                     docker.withRegistry('', 'Docker-hub'){
                         echo "-----------deliver backend-----------"
                         dockerImageB.push("$BUILD_NUMBER")
