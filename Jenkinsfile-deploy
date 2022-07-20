@@ -1,15 +1,15 @@
+@Library('github.com/releaseworks/jenkinslib') _
 pipeline{
     agent any 
     stages{
         stage('build-app-aws'){
             steps{
                 echo '--------deploy app on aws--------'
-                script{
-                    sh 'aws ecs update-service --cluster imgapp-back-cluster --service backend-service --force-new-deployment --region us-east-1'
-                    sh 'aws ecs update-service --cluster imgapp-front-cluster --service frontend-service --force-new-deployment --region us-east-1'
-                }
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    AWS("s3 ls --region=us-east-1")
+                    
+                }    
             }
         }
-        
     }
 }
