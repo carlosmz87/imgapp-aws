@@ -5,10 +5,9 @@ pipeline{
         stage('build-app-aws'){
             steps{
                 echo '--------deploy app on aws--------'
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                    AWS("s3 ls --region=us-east-1")
-                    
-                }    
+                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                    sh 'aws s3 ls'
+                }
             }
         }
     }
