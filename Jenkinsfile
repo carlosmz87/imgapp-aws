@@ -70,4 +70,12 @@ pipeline{
             }
         }
     }
+    post{
+        always{
+            emailext to: "carlosmartz1995@gmail.com",
+            subject: "Test Email",
+            body: "Test",
+            attachLog: true
+        }
+    }
 }
