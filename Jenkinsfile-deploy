@@ -3,9 +3,12 @@ pipeline{
     stages{
         stage('build-app-aws'){
             steps{
-                echo '--------deploy app on aws--------'
+                echo '-------deploy app on aws--------'
                 withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                    sh 'aws s3 ls'
+                    sh '''
+                        aws ecs update-service --cluster imgapp-cluster --service backend-service --force-new-deployment --region us-east-1
+                        aws ecs update-service --cluster imgapp-cluster --service frontend-service --force-new-deployment --region us-east-1
+                    '''
                 }
             }
         }
